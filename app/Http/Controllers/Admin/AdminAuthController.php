@@ -7,10 +7,13 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class AdminAuthController extends Controller
 {
-    public function showLoginForm() {
+    public function showLoginForm(): Response
+    {
+
         return Inertia::render('Admin/Auth/Login');
     }
 
