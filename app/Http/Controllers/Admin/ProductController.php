@@ -7,15 +7,17 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
 use App\Models\ProductImage;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use Inertia\Response;
 
 class ProductController extends Controller
 {
 
 
-    public function index()
+    public function index(): Response
     {
         $products = Product::with('category','brand','product_images')->get();
         $brands = Brand::get();
@@ -23,7 +25,7 @@ class ProductController extends Controller
         return Inertia::render('Admin/Product/Index', ['products' => $products,'brands'=>$brands,'categories'=>$categories]);
     }
 
-    public function store(Request $request)
+    public function store(Request $request): RedirectResponse
     {
 
         $product = Product::create([
@@ -60,14 +62,16 @@ class ProductController extends Controller
 
     }
 
-    public function deleteImage($id) {
+    public function deleteImage($id): RedirectResponse
+    {
 
          $image = ProductImage::where('id',$id)->delete();
          return redirect()->route('admin.products.index')->with('success','Image Deleted Successfully');
 
     }
 
-    public function update(Request $request, $id) {
+    public function update(Request $request, $id): RedirectResponse
+    {
 
 
         $product = Product::findOrFail($id);
@@ -111,7 +115,8 @@ class ProductController extends Controller
     }
 
 
-    public function destroyProduct($id)  {
+    public function destroyProduct($id): RedirectResponse
+    {
         $product = Product::where('id',$id)->delete();
         return redirect()->route('admin.products.index')->with('success','Product Deleted Successfully');
     }
