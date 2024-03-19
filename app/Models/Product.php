@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -53,4 +54,25 @@ class Product extends Model
     {
         return $this->hasMany(CartItem::class);
     }
+
+    public function scopeFiltered(Builder $quary): void
+    {
+        $quary
+            ->when(request('brands'), function (Builder $q) {
+            $q->whereIn('brand_id',request('brands'));
+        })
+            ->when(request('categories'), function (Builder $q) {
+                $q->whereIn('category_id',request('categories'));
+            })
+            ->when(request('prices'),function (Builder $q) {
+                $q->whereBetween('price',[
+                    request('prices.from',0),
+                    request('prices.to',100000),
+                ]);
+            });
+
+    }
+
+
+
 }

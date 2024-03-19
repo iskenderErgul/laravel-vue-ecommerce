@@ -3,10 +3,6 @@
     <!--    navbar-->
     <Header/>
 
-
-    <!--    hero section-->
-    <hero></hero>
-
     <!--    main content-->
     <slot></slot>
 

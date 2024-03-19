@@ -53,7 +53,6 @@ class Cart
         // Çerez, tarayıcı tarafından saklanır ve bu süre sonunda otomatik olarak silinir.
     }
 
-
     // Kullanıcının sepetinde veritabanında bulunan öğelerle, çerezlerdeki sepet öğelerini karşılaştırı
     public static function saveCookieCartItems(): void
     {
@@ -107,7 +106,6 @@ class Cart
             CartItem::insert($newCartItems);
         }
     }
-
 
     public static function getProductsAndCartItems()
     {
